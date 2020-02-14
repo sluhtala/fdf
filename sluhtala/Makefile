@@ -1,0 +1,20 @@
+NAME = test
+
+SRCS = main.c draw_line.c file_manager.c transform_move.c transform_rotate.c transform_scale.c \
+	   transform_projection.c renderer.c
+
+all: $(NAME)
+
+$(NAME):
+	gcc $(SRCS) libmlx.dylib libft/libft.a -o $(NAME)
+
+ver2:
+	gcc $(SRCS) -O libft/libft.a -o $(NAME) -I /usr/X11/include -g -l mlx -framework OpenGL -framework AppKit
+
+clean:
+	rm -f *.o
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all

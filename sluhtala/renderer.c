@@ -1,0 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   renderer.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/13 17:23:43 by sluhtala          #+#    #+#             */
+/*   Updated: 2020/02/13 17:24:48 by sluhtala         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf.h"
+
+void	draw_3d_grid(t_data *data, t_coord3d **point, int lenx, int leny)
+{
+	int i;
+	int y;
+	int p1[2];
+	int p2[2];
+
+	y = 0;
+	while (y < leny)
+	{
+		i = 1;
+		while (i < lenx)
+		{
+			p1[0] = point[y][i - 1].x;
+			p1[1] = point[y][i - 1].y;
+			p2[0] = point[y][i].x;
+			p2[1] = point[y][i].y;
+			draw_line(data, p1, p2, 0xffffff);
+		i++;
+		}
+		y++;
+	}
+	y = 1;
+	while (y < leny)
+	{
+		i = 0;
+		while (i < lenx)
+		{
+			p1[0] = point[y - 1][i].x;
+			p1[1] = point[y - 1][i].y;
+			p2[0] = point[y][i].x;
+			p2[1] = point[y][i].y;
+			draw_line(data, p1, p2, 0xffffff);
+		i++;
+		}
+		y++;
+	}
+}
+
