@@ -6,68 +6,74 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 19:34:34 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/12 20:51:09 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/18 19:29:44 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_coord3d **move_z(t_coord3d **pnt, double num, int lenx, int leny)
+static double **make_tmatrix(double x, double y, double z)
 {
-	int i;
-	int y;
+	double	**tmat;
 
-	i = 0;
-	y = 0;
-	while (y < leny)
-	{
-		i = 0;
-		while (i < lenx)
-		{
-			pnt[y][i].z = R_XZ(pnt[y][i].x, pnt[y][i].y, pnt[y][i].z , num);
-			i++;
-		}
-		y++;
-	}
-	return (pnt);
+	tmat = (double**)malloc(sizeof(double*) * 4);
+	tmat[0] = (double*)malloc(sizeof(double) * 4);
+	tmat[1] = (double*)malloc(sizeof(double) * 4);
+	tmat[2] = (double*)malloc(sizeof(double) * 4);
+	tmat[3] = (double*)malloc(sizeof(double) * 4);
+	tmat[0][0] = 1.0;
+	tmat[0][1] = 0.0;
+	tmat[0][2] = 0.0;
+	tmat[0][3] = x;
+	tmat[1][0] = 0.0;
+	tmat[1][1] = 1.0;
+	tmat[1][2] = 0.0;
+	tmat[1][3] = y;
+	tmat[2][0] = 0.0;
+	tmat[2][1] = 0.0;
+	tmat[2][2] = 1.0;
+	tmat[2][3] = z;
+	tmat[3][0] = 0;
+	tmat[3][1] = 0;
+	tmat[3][2] = 0;
+	tmat[3][3] = 1.0;
+	return(tmat);
 }
 
-t_coord3d **move_y(t_coord3d **pnt, double num, int lenx, int leny)
+static void	free_matrix(double ***m)
 {
 	int i;
-	int y;
 
+	if (!*m)
+		return ;
 	i = 0;
-	y = 0;
-	while (y < leny)
+	while (i < 4)
 	{
-		i = 0;
-		while (i < lenx)
-		{
-			pnt[y][i].y = T_Y(pnt[y][i].x, pnt[y][i].y, pnt[y][i].z , num);
-			i++;
-		}
-		y++;
+		free((*m)[i]);
+		i++;
 	}
-	return (pnt);
+	free(*m);
 }
 
-t_coord3d **move_x(t_coord3d **pnt, double num, int lenx, int leny)
+t_vec3 **transform_move(t_data data, double x, double y, double z)
 {
-	int i;
-	int y;
+	int		inx;
+	int		ynx;
+	double	**m;
 
-	i = 0;
-	y = 0;
-	while (y < leny)
+	inx = 0;
+	ynx = 0;
+	m = make_tmatrix(x, y, z);
+	while (ynx < data.leny)
 	{
-		i = 0;
-		while (i < lenx)
+		inx = 0;
+		while (inx < data.lenx)
 		{
-			pnt[y][i].x = T_X(pnt[y][i].x, pnt[y][i].y, pnt[y][i].z , num);
-			i++;
+			data.pnt[ynx][inx] = matrix_multiply_4(data.pnt[ynx][inx], m);
+			inx++;
 		}
-		y++;
+		ynx++;
 	}
-	return (pnt);
+	free_matrix(&m);
+	return (data.pnt);
 }

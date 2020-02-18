@@ -6,13 +6,13 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 19:45:52 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/13 17:11:29 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/18 17:31:29 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_coord3d **rotate_z(t_coord3d **pnt, double num, int lenx, int leny)
+t_vec3 **rotate_z(t_vec3 **pnt, double num, int lenx, int leny)
 {
 	int i;
 	int y;
@@ -34,7 +34,7 @@ t_coord3d **rotate_z(t_coord3d **pnt, double num, int lenx, int leny)
 	return (pnt);
 }
 
-t_coord3d **rotate_y(t_coord3d **pnt, double num, int lenx, int leny)
+t_vec3 **rotate_y(t_vec3 **pnt, double num, int lenx, int leny)
 {
 	int i;
 	int y;
@@ -56,7 +56,7 @@ t_coord3d **rotate_y(t_coord3d **pnt, double num, int lenx, int leny)
 	return (pnt);
 }
 
-t_coord3d **rotate_x(t_coord3d **pnt, double num, int lenx, int leny)
+t_vec3 **rotate_x(t_vec3 **pnt, double num, int lenx, int leny)
 {
 	int i;
 	int y;

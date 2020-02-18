@@ -1,7 +1,7 @@
 NAME = test
 
 SRCS = main.c draw_line.c file_manager.c transform_move.c transform_rotate.c transform_scale.c \
-	   transform_projection.c renderer.c
+	   transform_projection.c renderer.c error_manager.c matrix_multiply.c
 
 all: $(NAME)
 

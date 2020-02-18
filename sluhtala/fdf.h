@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 14:32:04 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/14 16:54:52 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/18 19:29:31 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define right_key 124
 # define space_key 49
 # define num_key(num) 17 + num
+
+
 
 # define T_X(x, y, z, vx) 1 * x + 0 * y + 0 * x + 1 * vx
 # define T_Y(x, y, z, vy) 0 * x + 1 * y + 0 * z + 1 * vy
@@ -59,12 +61,13 @@
 # include "libft.h"
 
 
-typedef struct	s_coord3d
+typedef struct	s_vec3
 {
 	double x;
 	double y;
 	double z;
-}				t_coord3d;
+	double w;
+}				t_vec3;
 
 typedef struct s_data
 {
@@ -72,7 +75,7 @@ typedef struct s_data
 	void *mlx_win;
 	int width;
 	int length;
-	t_coord3d ***pnt;
+	t_vec3 **pnt;
 	int lenx;
 	int leny;
 }				t_data;
@@ -83,23 +86,26 @@ typedef struct	s_size
 	int y;
 }				t_size;
 
-t_coord3d **proj_ortho(t_coord3d **pnt, int lenx, int leny);
+t_vec3 **proj_ortho(t_vec3 **pnt, int lenx, int leny);
 
 void		draw_line(t_data *data, int start[2], int end[2], int col);
-t_coord3d	**file_manager(int fd, int *lenx, int *leny);
-t_coord3d **move_x(t_coord3d **pnt, double num, int lenx, int leny);
-t_coord3d **move_y(t_coord3d **pnt, double num, int lenx, int leny);
-t_coord3d **move_z(t_coord3d **pnt, double num, int lenx, int leny);
+t_vec3	**file_manager(int fd, int *lenx, int *leny);
+t_vec3 **transform_move(t_data data, double x, double y, double z);
+t_vec3 **transform_scale(t_data data, double x, double y, double z);
+t_vec3 **move_y(t_vec3 **pnt, double num, int lenx, int leny);
+t_vec3 **move_z(t_vec3 **pnt, double num, int lenx, int leny);
 
-t_coord3d **scale_x(t_coord3d **pnt, double num, int lenx, int leny);
-t_coord3d **scale_y(t_coord3d **pnt, double num, int lenx, int leny);
-t_coord3d **scale_z(t_coord3d **pnt, double num, int lenx, int leny);
-t_coord3d **scale_xyz(t_coord3d **pnt, double num, int lenx, int leny);
-t_coord3d **rotate_x(t_coord3d **pnt, double num, int lenx, int leny);
-t_coord3d **rotate_y(t_coord3d **pnt, double num, int lenx, int leny);
-t_coord3d **rotate_z(t_coord3d **pnt, double num, int lenx, int leny);
-void	draw_3d_grid(t_data *data, t_coord3d **point, int lenx, int leny);
-t_coord3d	**proj_perspective(t_coord3d **pnt, int fov,int lenx, int leny);
-t_coord3d	**proj_parallel(t_coord3d **pnt, int fov, int lenx, int leny);
+t_vec3 **scale_x(t_vec3 **pnt, double num, int lenx, int leny);
+t_vec3 **scale_y(t_vec3 **pnt, double num, int lenx, int leny);
+t_vec3 **scale_z(t_vec3 **pnt, double num, int lenx, int leny);
+t_vec3 **scale_xyz(t_vec3 **pnt, double num, int lenx, int leny);
+t_vec3 **rotate_x(t_vec3 **pnt, double num, int lenx, int leny);
+t_vec3 **rotate_y(t_vec3 **pnt, double num, int lenx, int leny);
+t_vec3 **rotate_z(t_vec3 **pnt, double num, int lenx, int leny);
+void	draw_3d_grid(t_data *data, t_vec3 **point, int lenx, int leny);
+t_vec3	**proj_perspective(t_vec3 **pnt, int fov,int lenx, int leny);
+t_vec3	**proj_parallel(t_vec3 **pnt, int fov, int lenx, int leny);
+void		error_manager(char *str);
+t_vec3	matrix_multiply_4(t_vec3 r, double **m);
 
 #endif

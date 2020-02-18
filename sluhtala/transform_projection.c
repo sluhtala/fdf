@@ -6,13 +6,13 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 16:52:50 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/14 17:04:28 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/18 17:31:17 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_coord3d	**proj_ortho(t_coord3d **pnt, int lenx, int leny)
+t_vec3	**proj_ortho(t_vec3 **pnt, int lenx, int leny)
 {
 	int i;
 	int y;
@@ -34,7 +34,7 @@ t_coord3d	**proj_ortho(t_coord3d **pnt, int lenx, int leny)
 	return (pnt);
 }
 
-t_coord3d	**proj_parallel(t_coord3d **pnt, int fov, int lenx, int leny)
+t_vec3	**proj_parallel(t_vec3 **pnt, int fov, int lenx, int leny)
 {
 	int i;
 	int y;
@@ -55,7 +55,7 @@ static int n = 0;
 	return (pnt);
 }
 
-t_coord3d	**proj_perspective(t_coord3d **pnt, int fov,int lenx, int leny)
+t_vec3	**proj_perspective(t_vec3 **pnt, int fov,int lenx, int leny)
 {
 	int i;
 	int y;

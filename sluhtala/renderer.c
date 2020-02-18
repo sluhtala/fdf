@@ -6,13 +6,13 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:23:43 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/13 17:24:48 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/18 17:32:07 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_3d_grid(t_data *data, t_coord3d **point, int lenx, int leny)
+void	draw_3d_grid(t_data *data, t_vec3 **point, int lenx, int leny)
 {
 	int i;
 	int y;
