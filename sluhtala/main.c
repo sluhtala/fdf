@@ -114,7 +114,7 @@ int		main(int argc, char **argv)
 	d.width = 1920 / 2;
 	d.length = 1080 /2 ;
 	d.pnt = file_manager(fd, &d.lenx, &d.leny);
-	data->pnt = transform_scale(d, 30, 30, 10);	
+	data->pnt = transform_scale(d, 30/ 10, 30/10, 4);	
 	data->pnt = set_color(data);
 	printf("col.: %#x\n", data->pnt[0][0].color);
 	

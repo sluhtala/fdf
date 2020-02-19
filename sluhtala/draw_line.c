@@ -19,11 +19,9 @@ static int tohex(int num)
 	int green;
 	int blue;
 
-	printf("num -   %#x\n",num);
 	blue = num;
 	green = num * 16 * 16;
 	color = 0xff0000 + blue + green;
-	printf("color - %#x\n",color);
 	return (color);
 }
 
@@ -51,7 +49,9 @@ void	draw_line_high(t_data *data, int start[2], int end[2], int col[2])
 	delta[0] = end[0] - start[0];
 	delta[1] = end[1] - start[1];
 	xi = initialize(&delta[0], &delta[1], start, end);
-	dcol = (col[1] - col[0]) / delta[1];
+	dcol = col[1] - col[0];
+	if (delta[1] != 0)
+		dcol = dcol / delta[1];
 	point[0] = start[0];
 	point[1] = start[1];
 	error = 2 * delta[0] - delta[1];
@@ -69,7 +69,7 @@ void	draw_line_high(t_data *data, int start[2], int end[2], int col[2])
 	}
 }
 
-void	draw_line_low(t_data *data, int start[2], int end[2], int col[2])
+void	draw_line_low(t_data *data, int start[2], int  end[2], int col[2])
 {
 	int delta[2];
 	int error;
@@ -80,7 +80,9 @@ void	draw_line_low(t_data *data, int start[2], int end[2], int col[2])
 	delta[0] = end[0] - start[0];
 	delta[1] = end[1] - start[1];
 	yi = initialize(&delta[1], &delta[0], start, end);
-	dcol = (col[1] - col[0]) / delta[1];
+	dcol = col[1] - col[0];
+	if (delta[1] != 0)
+		dcol = dcol / delta[1];
 	point[0] = start[0];
 	point[1] = start[1];
 	error = 2 * delta[1] - delta[0];

@@ -19,6 +19,7 @@
 # define left_key 123
 # define right_key 124
 # define space_key 49
+# define COLDIV 60
 # define num_key(num) 17 + num
 
 

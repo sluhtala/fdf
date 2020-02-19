@@ -18,7 +18,7 @@ t_vec3	**set_color(t_data *data)
 		i = 0;
 		while (i < lenx)
 		{
-			data->pnt[j][i].color = 0xff - 0xff * (data->pnt[j][i].z / 100);
+			data->pnt[j][i].color = 0xff - 0xff * (data->pnt[j][i].z / COLDIV);
 			//printf("i:%d j:%d col: %#x\n", i, j, data->pnt[j][i].color);
 			i++;
 		}
