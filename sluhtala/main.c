@@ -39,7 +39,8 @@ int expand_lines(t_data *data, double num)
 	//mlx_clear_window(data->mlx_ptr, data->mlx_win);
 	p2[0] = data->width / 2 + cos(x * M_PI / 180) * dist;
 	p2[1] = data->length / 2 - sin(x * M_PI / 180) * dist;
-	draw_line(data, p1, p2, 0xffffff);
+	int col[2] = {0xffffff, 0xffffff};
+	draw_line(data, p1, p2, col);
 	return (0);
 }
 
@@ -113,9 +114,15 @@ int		main(int argc, char **argv)
 	d.width = 1920 / 2;
 	d.length = 1080 /2 ;
 	d.pnt = file_manager(fd, &d.lenx, &d.leny);
+	data->pnt = transform_scale(d, 30, 30, 10);	
+	data->pnt = set_color(data);
+	printf("col.: %#x\n", data->pnt[0][0].color);
 	
-	data->pnt = transform_scale(d, 30, 12, 0);	
-	data->pnt = transform_move(d, d.width/2, d.length/2, 0);	
+	//print_map(d.pnt, d.lenx, d.leny);
+	printf("col...: %#x\n", data->pnt[0][0].color);
+	data->pnt = transform_rotate_z(d, -30*(M_PI/180));
+	data->pnt = transform_rotate_x(d, 30*(M_PI/180));
+	data->pnt = transform_move(d, d.width/4, d.length/6, 0);
 	//print_map(d.pnt, d.lenx, d.leny);
 	//points = proj_ortho(points, map_size.x, map_size.y);
 	data->mlx_ptr = mlx_init();

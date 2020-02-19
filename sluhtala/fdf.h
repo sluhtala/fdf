@@ -63,21 +63,22 @@
 
 typedef struct	s_vec3
 {
-	double x;
-	double y;
-	double z;
-	double w;
+	double	x;
+	double	y;
+	double	z;
+	double	w;
+	int		color;
 }				t_vec3;
 
 typedef struct s_data
 {
-	void *mlx_ptr;
-	void *mlx_win;
-	int width;
-	int length;
-	t_vec3 **pnt;
-	int lenx;
-	int leny;
+	void	*mlx_ptr;
+	void	*mlx_win;
+	int		width;
+	int		length;
+	t_vec3	**pnt;
+	int		lenx;
+	int		leny;
 }				t_data;
 
 typedef struct	s_size
@@ -88,10 +89,14 @@ typedef struct	s_size
 
 t_vec3 **proj_ortho(t_vec3 **pnt, int lenx, int leny);
 
-void		draw_line(t_data *data, int start[2], int end[2], int col);
+void		draw_line(t_data *data, int start[2], int end[2], int col[2]);
+t_vec3	**set_color(t_data *data);
 t_vec3	**file_manager(int fd, int *lenx, int *leny);
 t_vec3 **transform_move(t_data data, double x, double y, double z);
 t_vec3 **transform_scale(t_data data, double x, double y, double z);
+t_vec3 **transform_rotate_x(t_data data, double a);
+t_vec3 **transform_rotate_y(t_data data, double a);
+t_vec3 **transform_rotate_z(t_data data, double a);
 t_vec3 **move_y(t_vec3 **pnt, double num, int lenx, int leny);
 t_vec3 **move_z(t_vec3 **pnt, double num, int lenx, int leny);
 
