@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 16:50:41 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/18 19:23:25 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/20 14:40:12 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,12 @@ t_vec3	matrix_multiply_4(t_vec3 r, double **m)
 	r.y = result.y;
 	r.z = result.z;
 	r.w = result.w;
+//	if (r.w != 0 && r.w != 1)
+//	{
+//		r.x = r.x / r.w;
+//		r.y = r.y / r.w;
+//		r.z = r.z / r.w;
+//		r.w = 1;
+//	}
 	return (r);
 }

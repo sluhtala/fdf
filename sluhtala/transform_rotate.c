@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 19:45:52 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/18 17:31:29 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/20 13:07:37 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,6 @@
 //# define R_XY(x, y, z, a) 0 * x + y * cos(a) + z * -sin(a)
 //# define R_XZ(x, y, z, a) 0 * x + y * sin(a) + z * cos(a)
 //
-//# define R_YX(x, y, z, a) cos(a) * x + 0 * y + sin(a) * z 
-//# define R_YY(x, y, z, a) 0 * x + 1 * y + 0 * z
-//# define R_YZ(x, y, z, a) -sin(a) * x + 0 * y + cos(a) * z
-//
-//# define R_ZX(x, y ,z, a) cos(a) * x + -sin(a) * y + 0 * z
-//# define R_ZY(x, y ,z, a) sin(a) * x + cos(a) * y + 0 * z
-//# define R_ZZ(x, y ,z, a) 0 * x + 0 * y + 1 * z
 
 static double **make_xmatrix(double a)
 {
@@ -51,10 +44,6 @@ static double **make_xmatrix(double a)
 	tmat[3][3] = 1.0;
 	return(tmat);
 }
-
-//# define R_YX(x, y, z, a) cos(a) * x + 0 * y + sin(a) * z 
-//# define R_YY(x, y, z, a) 0 * x + 1 * y + 0 * z
-//# define R_YZ(x, y, z, a) -sin(a) * x + 0 * y + cos(a) * z
 
 static double **make_ymatrix(double a)
 {

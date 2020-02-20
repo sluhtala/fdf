@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 16:38:11 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/12 18:57:28 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/20 13:07:33 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,18 @@ static int initialize(int *dx, int *dy, int start[0], int end[2])
 	return (i);
 }
 
-void	draw_line_high(t_data *data, int start[2], int end[2], int col[2])
+void	draw_line_high(t_data *data, int start[2], int end[2], double col[2])
 {
 	int delta[2];
 	int error;
 	int point[2];
 	int xi;
-	int dcol;
+	double dcol;
 
 	delta[0] = end[0] - start[0];
 	delta[1] = end[1] - start[1];
 	xi = initialize(&delta[0], &delta[1], start, end);
-	dcol = col[1] - col[0];
+	dcol = (double)(col[1] - col[0]);
 	if (delta[1] != 0)
 		dcol = dcol / delta[1];
 	point[0] = start[0];
@@ -57,7 +57,7 @@ void	draw_line_high(t_data *data, int start[2], int end[2], int col[2])
 	error = 2 * delta[0] - delta[1];
 	while (point[1] < end[1])
 	{
-		mlx_pixel_put(data->mlx_ptr, data->mlx_win, point[0], point[1], tohex(col[1]));
+		mlx_pixel_put(data->mlx_ptr, data->mlx_win, point[0], point[1], tohex((int)col[1]));
 		if (error > 0)
 		{
 			point[0] = point[0] + xi;
@@ -69,18 +69,18 @@ void	draw_line_high(t_data *data, int start[2], int end[2], int col[2])
 	}
 }
 
-void	draw_line_low(t_data *data, int start[2], int  end[2], int col[2])
+void	draw_line_low(t_data *data, int start[2], int  end[2], double col[2])
 {
 	int delta[2];
 	int error;
 	int point[2];
 	int yi;
-	int dcol;
+	double dcol;
 
 	delta[0] = end[0] - start[0];
 	delta[1] = end[1] - start[1];
 	yi = initialize(&delta[1], &delta[0], start, end);
-	dcol = col[1] - col[0];
+	dcol = (double)(col[1] - col[0]);
 	if (delta[1] != 0)
 		dcol = dcol / delta[1];
 	point[0] = start[0];
@@ -88,7 +88,7 @@ void	draw_line_low(t_data *data, int start[2], int  end[2], int col[2])
 	error = 2 * delta[1] - delta[0];
 	while (point[0] < end[0])
 	{
-		mlx_pixel_put(data->mlx_ptr, data->mlx_win, point[0], point[1], tohex(col[1]));
+		mlx_pixel_put(data->mlx_ptr, data->mlx_win, point[0], point[1], tohex((int)col[1]));
 		if (error > 0)
 		{
 			point[1] = point[1] + yi;
@@ -100,7 +100,7 @@ void	draw_line_low(t_data *data, int start[2], int  end[2], int col[2])
 	}
 }
 
-void	draw_line(t_data *data, int start[2], int end[2], int col[2])
+void	draw_line(t_data *data, int start[2], int end[2], double col[2])
 {
 	int tcol;
 

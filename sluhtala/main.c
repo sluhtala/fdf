@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 15:03:00 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/18 19:32:18 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/20 18:38:25 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,19 @@ int		close_program(t_data *data)
 	return (0);
 }
 
+#include <stdio.h>
 t_vec3 **transformation(t_data *data)
 {	
-	data->pnt = transform_scale(*data, 30, 30, 46);
+	data->pnt = transform_scale(*data, 40, 40, 5);
 	data->pnt = set_color(data);	
-	data->pnt = transform_rotate_z(*data, -30*(M_PI/180));
-	data->pnt = transform_rotate_x(*data, 30*(M_PI/180));
-	data->pnt = transform_move(*data, 20, 20, 0);
+//	data->pnt = transform_perspective(*data, 59);
+	data->pnt = transform_rotate_y(*data, 42*(M_PI/180));
+	data->pnt = transform_rotate_z(*data, 42*(M_PI/180));
+	data->pnt = transform_rotate_x(*data, 38*(M_PI/180));
+	data->pnt = transform_move(*data, 100, 10, 0);
 	return (data->pnt);
 }
 
-#include <stdio.h>
 static t_vec3	**move(int key, t_data *data)
 {
 	mlx_clear_window(data->mlx_ptr, data->mlx_win);
@@ -97,7 +99,7 @@ int		main(int argc, char **argv)
 	d.width = 1920 / 2;
 	d.length = 1080 /2 ;
 	d.pnt = file_manager(fd, &d.lenx, &d.leny);
-	data->pnt = set_color(data);
+	//data->pnt = set_color(data);
 	data->pnt = transformation(data);	
 	//print_map(d.pnt, d.lenx, d.leny);
 	printf("col...: %#x\n", data->pnt[0][0].color);

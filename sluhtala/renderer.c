@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:23:43 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/18 17:32:07 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/20 13:07:25 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void draw_vertical(t_data *data, t_vec3 **point, int lenx, int leny)
 	int y;
 	int p1[2];
 	int p2[2];
-	int col[2];
+	double col[2];
 
 	y = 1;
 	while (y < leny)
@@ -30,8 +30,8 @@ static void draw_vertical(t_data *data, t_vec3 **point, int lenx, int leny)
 			p1[1] = point[y - 1][i].y;
 			p2[0] = point[y][i].x;
 			p2[1] = point[y][i].y;
-			col[0] = data->pnt[y - 1][i].color;
-			col[1] = data->pnt[y][i].color;
+			col[0] = (double)data->pnt[y - 1][i].color;
+			col[1] = (double)data->pnt[y][i].color;
 			draw_line(data, p1, p2, col);
 		i++;
 		}
@@ -45,7 +45,7 @@ static void draw_horizontal(t_data *data, t_vec3 **point, int lenx, int leny)
 	int y;
 	int p1[2];
 	int p2[2];
-	int col[2];
+	double col[2];
 
 	y = 0;
 	while (y < leny)
@@ -57,8 +57,8 @@ static void draw_horizontal(t_data *data, t_vec3 **point, int lenx, int leny)
 			p1[1] = point[y][i - 1].y;
 			p2[0] = point[y][i].x;
 			p2[1] = point[y][i].y;
-			col[0] = data->pnt[y][i - 1].color;
-			col[1] = data->pnt[y][i].color;
+			col[0] = (double)data->pnt[y][i - 1].color;
+			col[1] = (double)data->pnt[y][i].color;
 			draw_line(data, p1, p2, col);
 		i++;
 		}

@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 14:32:04 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/18 19:29:31 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/20 13:25:40 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct	s_size
 
 t_vec3 **proj_ortho(t_vec3 **pnt, int lenx, int leny);
 
-void		draw_line(t_data *data, int start[2], int end[2], int col[2]);
+void		draw_line(t_data *data, int start[2], int end[2], double col[2]);
 t_vec3	**set_color(t_data *data);
 t_vec3	**file_manager(int fd, int *lenx, int *leny);
 t_vec3 **transform_move(t_data data, double x, double y, double z);
@@ -98,6 +98,7 @@ t_vec3 **transform_scale(t_data data, double x, double y, double z);
 t_vec3 **transform_rotate_x(t_data data, double a);
 t_vec3 **transform_rotate_y(t_data data, double a);
 t_vec3 **transform_rotate_z(t_data data, double a);
+t_vec3 **transform_perspective(t_data data, double fov);
 t_vec3 **move_y(t_vec3 **pnt, double num, int lenx, int leny);
 t_vec3 **move_z(t_vec3 **pnt, double num, int lenx, int leny);
 
