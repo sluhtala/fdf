@@ -26,14 +26,14 @@ static void draw_vertical(t_data *data, t_vec3 **point, int lenx, int leny)
 		i = 0;
 		while (i < lenx)
 		{
-			p1[0] = point[y - 1][i].x;
-			p1[1] = point[y - 1][i].y;
-			p2[0] = point[y][i].x;
-			p2[1] = point[y][i].y;
+			p1[0] = (int)point[y - 1][i].x;
+			p1[1] = (int)point[y - 1][i].y;
+			p2[0] = (int)point[y][i].x;
+			p2[1] = (int)point[y][i].y;
 			col[0] = (double)data->pnt[y - 1][i].color;
 			col[1] = (double)data->pnt[y][i].color;
 			draw_line(data, p1, p2, col);
-		i++;
+			i++;
 		}
 		y++;
 	}
@@ -53,10 +53,10 @@ static void draw_horizontal(t_data *data, t_vec3 **point, int lenx, int leny)
 		i = 1;
 		while (i < lenx)
 		{
-			p1[0] = point[y][i - 1].x;
-			p1[1] = point[y][i - 1].y;
-			p2[0] = point[y][i].x;
-			p2[1] = point[y][i].y;
+			p1[0] = (int)point[y][i - 1].x;
+			p1[1] = (int)point[y][i - 1].y;
+			p2[0] = (int)point[y][i].x;
+			p2[1] = (int)point[y][i].y;
 			col[0] = (double)data->pnt[y][i - 1].color;
 			col[1] = (double)data->pnt[y][i].color;
 			draw_line(data, p1, p2, col);
@@ -65,6 +65,7 @@ static void draw_horizontal(t_data *data, t_vec3 **point, int lenx, int leny)
 		y++;
 	}
 }
+
 
 void	draw_3d_grid(t_data *data, t_vec3 **point, int lenx, int leny)
 {

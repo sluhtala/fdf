@@ -16,7 +16,7 @@ t_vec3	matrix_multiply_4(t_vec3 r, double **m)
 {
 	t_vec3	result;
 	
-	result.x = r.x * m[0][0]+ r.y * m[0][1] + r.x * m[0][2] + r.w * m[0][3];
+	result.x = r.x * m[0][0]+ r.y * m[0][1] + r.z * m[0][2] + r.w * m[0][3];
 	result.y = r.x * m[1][0]+ r.y * m[1][1] + r.z * m[1][2] + r.w * m[1][3];
 	result.z = r.x * m[1][0]+ r.y * m[2][1] + r.z * m[2][2] + r.w * m[2][3];
 	result.w = r.x * m[3][0]+ r.y * m[3][1] + r.z * m[3][2] + r.w * m[3][3];	
@@ -24,12 +24,5 @@ t_vec3	matrix_multiply_4(t_vec3 r, double **m)
 	r.y = result.y;
 	r.z = result.z;
 	r.w = result.w;
-//	if (r.w != 0 && r.w != 1)
-//	{
-//		r.x = r.x / r.w;
-//		r.y = r.y / r.w;
-//		r.z = r.z / r.w;
-//		r.w = 1;
-//	}
 	return (r);
 }

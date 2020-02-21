@@ -15,7 +15,7 @@
 //# define P_PRX(x, y, z, f, fa, ne) x * (1 / (tan(f / 2 * (M_PI / 180)))) + 0 * y + 0 * z + 1 * 0
 //# define P_PRY(x, y, z, f, fa, ne) x * 0 + y * (1 / (tan(f / 2 * (M_PI / 180)))) + 0 * z + 1 * 0
 //# define P_PRZ(x, y, z, f, fa, ne) x * 0 + y * 0 + z * -(fa/ (fa - ne)) -1
-static double **make_persmatrix(double s, double l, double r, double near, double far, t_data data)
+static double **make_persmatrix(double s, double near, double far, double ar)
 {
 	double	**tmat;
 
@@ -24,24 +24,26 @@ static double **make_persmatrix(double s, double l, double r, double near, doubl
 	tmat[1] = (double*)malloc(sizeof(double) * 4);
 	tmat[2] = (double*)malloc(sizeof(double) * 4);
 	tmat[3] = (double*)malloc(sizeof(double) * 4);
-	tmat[0][0] = s * 1 / (data.width / data.length);
-	tmat[0][1] = 2 * near / (r -l);
+	tmat[0][0] = s;
+	tmat[0][1] = 0;
 	tmat[0][2] = 0.0;
-	tmat[0][3] = (r + l) / (r - l);
+	tmat[0][3] = 0;
 	tmat[1][0] = 0.0;
-	tmat[1][1] = 0;
-	tmat[1][2] = 2 * near / (s - -(s));
+	tmat[1][1] = s;
+	tmat[1][2] = 0;
 	tmat[1][3] = 0;
 	tmat[2][0] = 0.0;
 	tmat[2][1] = 0.0;
-	tmat[2][2] = -(far + near) / (far - near);
-	tmat[2][3] = -2 * (far * near) / (far - near);
+	tmat[2][2] = -far / (far - near);
+	tmat[2][3] = -1;
 	tmat[3][0] = 0;
 	tmat[3][1] = 0;
-	tmat[3][2] = -1;
+	tmat[3][2] = -(far * near) / (far - near);
 	tmat[3][3] = 0;
 	return(tmat);
 }
+
+
 
 static void	free_matrix(double ***m)
 {
@@ -65,17 +67,14 @@ t_vec3 **transform_perspective(t_data data, double fov)
 	double	near;
 	double	far;
 	double	**m;
-	double l;
-	double r;
+	double 	ar;
 
 	near = 0.1;
 	far = 100;
-	r = (data.width / data.length) * (tan(fov * 0.5 * M_PI / 180) * near);
-	l = -r;
-	fov = (tan((fov / 2) *  (M_PI / 180)) * near);
-	inx = 0;
+	ar = data.width / data.length;
+	fov = (tan((fov / 2) *  (M_PI / 180)));
 	ynx = 0;
-	m = make_persmatrix(fov,l, r, near, far, data);
+	m = make_persmatrix(fov, near, far, ar);
 	while (ynx < data.leny)
 	{
 		inx = 0;
@@ -86,7 +85,7 @@ t_vec3 **transform_perspective(t_data data, double fov)
 			{
 				data.pnt[ynx][inx].x /= data.pnt[ynx][inx].w;
 				data.pnt[ynx][inx].y /= data.pnt[ynx][inx].w;
-				data.pnt[ynx][inx].z /= data.pnt[ynx][inx].w;	
+				data.pnt[ynx][inx].z /= data.pnt[ynx][inx].w;
 			}	
 			inx++;
 		}
