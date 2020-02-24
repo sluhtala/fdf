@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 19:34:34 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/18 19:29:44 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/24 14:48:38 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ static double **make_tmatrix(double x, double y, double z)
 {
 	double	**tmat;
 
-	tmat = (double**)malloc(sizeof(double*) * 4);
-	tmat[0] = (double*)malloc(sizeof(double) * 4);
-	tmat[1] = (double*)malloc(sizeof(double) * 4);
-	tmat[2] = (double*)malloc(sizeof(double) * 4);
-	tmat[3] = (double*)malloc(sizeof(double) * 4);
+	tmat = matrix_alloc();
 	tmat[0][0] = 1.0;
 	tmat[0][1] = 0.0;
 	tmat[0][2] = 0.0;

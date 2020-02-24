@@ -1,9 +1,18 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_color.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/24 14:26:05 by sluhtala          #+#    #+#             */
+/*   Updated: 2020/02/24 14:33:44 by sluhtala         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 
-static void get_minmax(t_data *data, int *min, int *max)
+static void		get_minmax(t_data *data, int *min, int *max)
 {
 	int i;
 	int j;
@@ -28,7 +37,15 @@ static void get_minmax(t_data *data, int *min, int *max)
 		*max = 1;
 }
 
-t_vec3	**set_color(t_data *data)
+/*
+** Finds the right color value for each point.
+** First find the minimum and maximum z value.
+** Even if we have negative values it always starts from white
+** relation of z and maxmin distance can be multiplied with 255
+** now we can minus that from 255.
+*/
+
+t_vec3			**set_color(t_data *data)
 {
 	int max;
 	int min;

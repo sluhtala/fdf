@@ -6,25 +6,35 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 16:52:50 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/20 15:36:28 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:57:05 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-//# define P_PRX(x, y, z, f, fa, ne) x * (1 / (tan(f / 2 * (M_PI / 180)))) + 0 * y + 0 * z + 1 * 0
-//# define P_PRY(x, y, z, f, fa, ne) x * 0 + y * (1 / (tan(f / 2 * (M_PI / 180)))) + 0 * z + 1 * 0
-//# define P_PRZ(x, y, z, f, fa, ne) x * 0 + y * 0 + z * -(fa/ (fa - ne)) -1
-static double **make_persmatrix(double s, double near, double far, double ar)
+double			**matrix_alloc(void)
+{
+	double	**mat;
+
+	if (!(mat = (double**)malloc(sizeof(double*) * 4)))
+		error_manager("Malloc error.");
+	if (!(mat[0] = (double*)malloc(sizeof(double) * 4)))
+		error_manager("Malloc error.");
+	if (!(mat[1] = (double*)malloc(sizeof(double) * 4)))
+		error_manager("Malloc error.");
+	if (!(mat[2] = (double*)malloc(sizeof(double) * 4)))
+		error_manager("Malloc error.");
+	if (!(mat[3] = (double*)malloc(sizeof(double) * 4)))
+		error_manager("Malloc error.");
+	return (mat);
+}
+
+static double	**make_persmatrix(double s, double near, double far, double ar)
 {
 	double	**tmat;
 
-	tmat = (double**)malloc(sizeof(double*) * 4);
-	tmat[0] = (double*)malloc(sizeof(double) * 4);
-	tmat[1] = (double*)malloc(sizeof(double) * 4);
-	tmat[2] = (double*)malloc(sizeof(double) * 4);
-	tmat[3] = (double*)malloc(sizeof(double) * 4);
-	tmat[0][0] = s;
+	tmat = matrix_alloc();
+	tmat[0][0] = s * ar;
 	tmat[0][1] = 0;
 	tmat[0][2] = 0.0;
 	tmat[0][3] = 0;
@@ -43,9 +53,7 @@ static double **make_persmatrix(double s, double near, double far, double ar)
 	return(tmat);
 }
 
-
-
-static void	free_matrix(double ***m)
+static void		free_matrix(double ***m)
 {
 	int i;
 
@@ -60,112 +68,41 @@ static void	free_matrix(double ***m)
 	free(*m);
 }
 
-t_vec3 **transform_perspective(t_data data, double fov)
+static	t_vec3	get_multiply(double **m, t_data data, int y, int i)
 {
-	int		inx;
-	int		ynx;
+	data.pnt[y][i] = matrix_multiply_4(data.pnt[y][i], m);
+	if (data.pnt[y][i].w != 1 && data.pnt[y][i].w != 0)
+	{
+		data.pnt[y][i].x /= data.pnt[y][i].w;
+		data.pnt[y][i].y /= data.pnt[y][i].w;
+		data.pnt[y][i].z /= data.pnt[y][i].w;
+	}
+	return (data.pnt[y][i]);
+}
+t_vec3			**transform_perspective(t_data data, double fov)
+{
+	int		i;
+	int		y;
 	double	near;
 	double	far;
 	double	**m;
-	double 	ar;
 
-	near = 0.1;
+	near = 1;
 	far = 100;
-	ar = data.width / data.length;
-	fov = (tan((fov / 2) *  (M_PI / 180)));
-	ynx = 0;
-	m = make_persmatrix(fov, near, far, ar);
-	while (ynx < data.leny)
+	fov = (tan((fov / 2) * (M_PI / 180)));
+	y = 0;
+	data.pnt = normalize_pnt(data);
+	m = make_persmatrix(fov, near, far, data.width / data.length);
+	while (y < data.leny)
 	{
-		inx = 0;
-		while (inx < data.lenx)
+		i = 0;
+		while (i < data.lenx)
 		{
-			data.pnt[ynx][inx] = matrix_multiply_4(data.pnt[ynx][inx], m);
-			if (data.pnt[ynx][inx].w != 1 && data.pnt[ynx][inx].w != 0)
-			{
-				data.pnt[ynx][inx].x /= data.pnt[ynx][inx].w;
-				data.pnt[ynx][inx].y /= data.pnt[ynx][inx].w;
-				data.pnt[ynx][inx].z /= data.pnt[ynx][inx].w;
-			}	
-			inx++;
+			data.pnt[y][i] = get_multiply(m, data, y, i);
+			i++;
 		}
-		ynx++;
+		y++;
 	}
 	free_matrix(&m);
 	return (data.pnt);
-}
-
-
-t_vec3	**proj_ortho(t_vec3 **pnt, int lenx, int leny)
-{
-	int i;
-	int y;
-	
-	i = 0;
-	y = 0;
-	while (y < leny)
-	{
-		i = 0;
-		while (i < lenx)
-		{
-			pnt[y][i].x = P_OX(pnt[y][i].x, pnt[y][i].y, pnt[y][i].z);
-			pnt[y][i].y = P_OY(pnt[y][i].x, pnt[y][i].y, pnt[y][i].z);
-			pnt[y][i].z = P_OZ(pnt[y][i].x, pnt[y][i].y, pnt[y][i].z);
-			i++;
-		}
-		y++;
-	}
-	return (pnt);
-}
-
-t_vec3	**proj_parallel(t_vec3 **pnt, int fov, int lenx, int leny)
-{
-	int i;
-	int y;
-static int n = 0;
-	while (y < leny)
-	{
-		i = 0;
-		while (i < lenx)
-		{
-			pnt[y][i].x = P_PAX(pnt[y][i].x, pnt[y][i].y, pnt[y][i].z, fov, n);
-			pnt[y][i].y = P_PAY(pnt[y][i].x, pnt[y][i].y, pnt[y][i].z, fov, n);
-			pnt[y][i].z = P_PAZ(pnt[y][i].x, pnt[y][i].y, pnt[y][i].z, fov, n);
-			i++;
-		}
-		y++;
-	}
-	n = n + 10;
-	return (pnt);
-}
-
-t_vec3	**proj_perspective(t_vec3 **pnt, int fov,int lenx, int leny)
-{
-	int i;
-	int y;
-	double z;
-	double fa;
-	double ne;
-	double camera[3] = {50.0,50.0,0.0}; 	
-	i = 0;
-	y = 0;
-	fa = 1000;
-	ne = 0.01;
-	while (y < leny)
-	{
-		i = 0;
-		while (i < lenx)
-		{
-			fa = pnt[y][i].z;
-			pnt[y][i].x = P_PRX(pnt[y][i].x, pnt[y][i].y, pnt[y][i].z, fov, fa, ne);
-			pnt[y][i].y = P_PRY(pnt[y][i].x, pnt[y][i].y, pnt[y][i].z, fov, fa, ne);
-			pnt[y][i].z = P_PRZ(pnt[y][i].x, pnt[y][i].y, pnt[y][i].z, fov, fa, ne);
-		//pnt[y][i].x = pnt[y][i].x * z;
-		//pnt[y][i].y = pnt[y][i].y * z;
-		//pnt[y][i].z = pnt[y][i].z * 0;		
-			i++;
-		}
-		y++;
-	}
-	return (pnt);
 }
