@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 16:52:50 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/24 16:57:05 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/24 19:33:16 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ double			**matrix_alloc(void)
 	return (mat);
 }
 
-static double	**make_persmatrix(double s, double near, double far, double ar)
+static double	**make_persmatrix2(double s, double near, double far, double ar)
 {
 	double	**tmat;
 
 	tmat = matrix_alloc();
-	tmat[0][0] = s * ar;
+	tmat[0][0] = s;
 	tmat[0][1] = 0;
 	tmat[0][2] = 0.0;
 	tmat[0][3] = 0;
@@ -48,10 +48,35 @@ static double	**make_persmatrix(double s, double near, double far, double ar)
 	tmat[2][3] = -1;
 	tmat[3][0] = 0;
 	tmat[3][1] = 0;
-	tmat[3][2] = -(far * near) / (far - near);
+	tmat[3][2] = (far * near) / (far - near);
 	tmat[3][3] = 0;
 	return(tmat);
 }
+
+static double	**make_persmatrix(double b, double near, double far, double l, double t , double r)
+{
+	double	**tmat;
+
+	tmat = matrix_alloc();
+	tmat[0][0] = 2 * near / (r - 1);
+	tmat[0][1] = 0;
+	tmat[0][2] = 0.0;
+	tmat[0][3] = 0;
+	tmat[1][0] = 0.0;
+	tmat[1][1] = 2 * near / (t- b);
+	tmat[1][2] = 0;
+	tmat[1][3] = 0;
+	tmat[2][0] = (r + l) / (r- l);
+	tmat[2][1] = (t + b) / (t - b);
+	tmat[2][2] = - (far + near) / (far - near);
+	tmat[2][3] = -1;
+	tmat[3][0] = 0;
+	tmat[3][1] = 0;
+	tmat[3][2] = -( 2 * far * near) / (far - near);
+	tmat[3][3] = 0;
+	return(tmat);
+}
+
 
 static void		free_matrix(double ***m)
 {
@@ -79,6 +104,7 @@ static	t_vec3	get_multiply(double **m, t_data data, int y, int i)
 	}
 	return (data.pnt[y][i]);
 }
+
 t_vec3			**transform_perspective(t_data data, double fov)
 {
 	int		i;
@@ -87,12 +113,25 @@ t_vec3			**transform_perspective(t_data data, double fov)
 	double	far;
 	double	**m;
 
-	near = 1;
+	double b;
+	double t;
+	double r;
+	double l;
+
+	near = 0.5;
+
+	t = tan(fov * 0.5 * M_PI / 180) * near;
+	b = -t;
+	r = data.width / data.length * t;
+	l = -r;
+
+
 	far = 100;
-	fov = (tan((fov / 2) * (M_PI / 180)));
+	fov = 1 / ((tan((fov / 2) * (M_PI / 180))));
 	y = 0;
 	data.pnt = normalize_pnt(data);
-	m = make_persmatrix(fov, near, far, data.width / data.length);
+	m = make_persmatrix(b, near, far, l, t , r);
+	//m = make_persmatrix(fov, near, far, data.width / data.lengt);
 	while (y < data.leny)
 	{
 		i = 0;

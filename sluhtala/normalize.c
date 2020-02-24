@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:19:55 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/24 16:13:22 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/24 19:34:40 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ t_vec3 **normalize_pnt(t_data data)
 		i = 0;
 		while (i < data.lenx)
 		{
-			d = sqrt(data.pnt[y][i].x * data.pnt[y][i].x + data.pnt[y][i].y * data.pnt[y][i].y);
+			d = sqrt(data.pnt[y][i].x * data.pnt[y][i].x + data.pnt[y][i].y *
+				data.pnt[y][i].y);
 			if (d != 0)
 			{
 				data.pnt[y][i].x = data.pnt[y][i].x / d;

@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 15:03:00 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/24 16:54:43 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/24 19:44:24 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ int		close_program(t_data *data)
 }
 
 t_vec3 **transformation(t_data *data)
-{	
+{
+	data->img_posx = SCREENCENTER_X;
+	data->img_posy = SCREENCENTER_Y;
 	data->pnt = set_color(data);	
-	data->pnt = transform_scale(*data, 20, 20, 1.7);
-	data->pnt = transform_rotate_x(*data, 55 * (M_PI / 180));
+	data->pnt = transform_scale(*data, 20, 20, 10);
+	data->pnt = transform_rotate_x(*data, 45 * (M_PI / 180));
 	data->pnt = transform_rotate_z(*data, 20*(M_PI/180));
 	return (data->pnt);
 }
@@ -36,13 +38,13 @@ static t_vec3	**move(int key, t_data *data)
 {
 	mlx_clear_window(data->mlx_ptr, data->mlx_win);
 	if (key == up_key)
-		data->pnt = transform_move(*data, 0, -40, 0);
+		data->img_posy -= 20;
 	if (key == down_key)
-		data->pnt = transform_move(*data, 0, 40, 0);
+		data->img_posy += 20;
 	if (key == right_key)
-		data->pnt = transform_move(*data, 40, 0, 0);
+		data->img_posx += 20;
 	if (key == left_key)
-		data->pnt = transform_move(*data, -40, 0, 0);
+		data->img_posx -= 20;
 	draw_grid(data);
 	return (data->pnt);
 }
@@ -53,15 +55,21 @@ void	change_projection(t_data *data, int key)
 	if (key == 31 && data->pnt_cpy != NULL)
 	{
 		free_pnt(data);
+		data->img_posx -= 500;
+		data->img_posy -= 20;
 		data->pnt = data->pnt_cpy;
 		data->pnt_cpy = NULL;
 	}
 	if (key == 35 && data->pnt_cpy == NULL)
 	{
 		data->pnt_cpy = copy_pnt(data);
-		data->pnt = transform_scale(*data, 1, 1, -1);
-		//data->pnt = transform_rotate_y(*data, 90 * (M_PI/180));
-		data->pnt = transform_perspective(*data, 100);
+		data->pnt = transform_scale(*data, .01, .01, .01);
+		data->pnt = transform_rotate_z(*data, 180 * (M_PI/180));
+		data->pnt = transform_move(*data, 0, 0, -100);
+		data->pnt = transform_perspective(*data, 80);
+		data->pnt = transform_scale(*data, 500, -500, 500);
+		data->img_posx += 500;
+		data->img_posy += 20;
 	}
 	draw_grid(data);
 }
@@ -79,9 +87,9 @@ int		input_manager(int key, t_data *data)
 	double cent2;
 	double cent3;
 
-	cent1 = ((data->pnt[0][0].x + data->pnt[data->leny - 1][data->lenx - 1].x ) / 2);
-	cent2 = ((data->pnt[0][0].y + data->pnt[data->leny - 1][data->lenx - 1].y ) / 2);
-	cent3 = ((data->pnt[0][0].z + data->pnt[data->leny - 1][data->lenx - 1].z ) / 2);
+	cent1 = data->pnt[0][0].x;
+	cent2 = data->pnt[0][0].y;
+	cent3 = data->pnt[0][0].z;
 	if (key == esc_key || key == 12)
 		close_program(data);
 	if (key == up_key || key == down_key || key == right_key || key == left_key)
@@ -121,8 +129,8 @@ int		main(int argc, char **argv)
 		return (0);
 	if (!(fd = open(argv[1], O_RDONLY)))
 		return (0);
-	d.width = 1920 / 2;
-	d.length = 1080 /2 ;
+	d.width = 1920;
+	d.length = 1080;
 	d.pnt = file_manager(fd, &d.lenx, &d.leny);
 	d.pnt_cpy = NULL;
 	data->pnt = transformation(data);

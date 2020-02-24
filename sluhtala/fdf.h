@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 14:32:04 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/24 16:32:00 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/24 17:58:20 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct s_data
 	t_vec3	**pnt_cpy;
 	int		lenx;
 	int		leny;
+	int		img_posx;
+	int		img_posy;
 }				t_data;
 
 typedef struct	s_size
