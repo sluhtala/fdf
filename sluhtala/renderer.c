@@ -75,6 +75,12 @@ void	draw_grid(t_data *data)
 	point = data->pnt;
 	lenx = data->lenx;
 	leny = data->leny;
+	if (lenx == 1 && leny == 1)
+	{
+		mlx_pixel_put(data->mlx_ptr, data->mlx_win, data->pnt[0][0].x +
+		data->img_posx, data->pnt[0][0].y + data->img_posy, 0xff0000);
+		return ;
+	}
 	draw_horizontal(data, point, lenx, leny);
 	draw_vertical(data, point, lenx, leny);
 }

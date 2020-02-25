@@ -118,6 +118,7 @@ t_vec3			**file_manager(int fd, int *lenx, int *leny)
 	}
 	points = get_coords(map, lenx, leny);
 	free(map);
+	close(fd);
 	map = NULL;
 	return (points);
 }
