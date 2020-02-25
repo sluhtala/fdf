@@ -12,6 +12,20 @@
 
 #include "fdf.h"
 
+static int	point_on_image(t_data *data, int p[2])
+{
+	int w;
+	int h;
+
+	w = data->width;
+	h = data->length;
+	if (p[0] <= w && p[0] >= 0 && p[1] <= h && p[1] >= 0)
+	{
+		return (1);
+	}
+	return (0);
+}
+
 static void draw_vertical(t_data *data, t_vec3 **point, int lenx, int leny)
 {
 	int i;
@@ -32,7 +46,8 @@ static void draw_vertical(t_data *data, t_vec3 **point, int lenx, int leny)
 			p2[1] = (int)point[y][i].y + data->img_posy;
 			col[0] = (double)data->pnt[y - 1][i].color;
 			col[1] = (double)data->pnt[y][i].color;
-			draw_line(data, p1, p2, col);
+			if (point_on_image(data, p1) || point_on_image(data, p2))
+				draw_line(data, p1, p2, col);
 			i++;
 		}
 		y++;
@@ -59,8 +74,9 @@ static void draw_horizontal(t_data *data, t_vec3 **point, int lenx, int leny)
 			p2[1] = (int)point[y][i].y + data->img_posy;
 			col[0] = (double)data->pnt[y][i - 1].color;
 			col[1] = (double)data->pnt[y][i].color;
-			draw_line(data, p1, p2, col);
-		i++;
+			if (point_on_image(data, p1) || point_on_image(data, p2))
+				draw_line(data, p1, p2, col);
+			i++;
 		}
 		y++;
 	}

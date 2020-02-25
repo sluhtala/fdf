@@ -16,11 +16,7 @@ static double **make_smatrix(double x, double y, double z)
 {
 	double	**tmat;
 
-	tmat = (double**)malloc(sizeof(double*) * 4);
-	tmat[0] = (double*)malloc(sizeof(double) * 4);
-	tmat[1] = (double*)malloc(sizeof(double) * 4);
-	tmat[2] = (double*)malloc(sizeof(double) * 4);
-	tmat[3] = (double*)malloc(sizeof(double) * 4);
+	tmat = matrix_alloc();
 	tmat[0][0] = x;
 	tmat[0][1] = 0.0;
 	tmat[0][2] = 0.0;
