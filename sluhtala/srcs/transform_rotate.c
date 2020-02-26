@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 19:45:52 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/24 14:53:16 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/26 12:56:40 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	free_matrix(double ***m)
 	free(*m);
 }
 
-t_vec3 **transform_rotate_x(t_data data, double a)
+t_vec3		**transform_rotate_x(t_data data, double a)
 {
 	int		inx;
 	int		ynx;
@@ -50,7 +50,7 @@ t_vec3 **transform_rotate_x(t_data data, double a)
 	return (data.pnt);
 }
 
-t_vec3 **transform_rotate_y(t_data data, double a)
+t_vec3		**transform_rotate_y(t_data data, double a)
 {
 	int		inx;
 	int		ynx;
@@ -73,7 +73,7 @@ t_vec3 **transform_rotate_y(t_data data, double a)
 	return (data.pnt);
 }
 
-t_vec3 **transform_rotate_z(t_data data, double a)
+t_vec3		**transform_rotate_z(t_data data, double a)
 {
 	int		inx;
 	int		ynx;

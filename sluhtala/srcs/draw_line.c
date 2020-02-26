@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 16:38:11 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/24 14:03:43 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/26 13:10:45 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** adds blue and green to max red
 */
 
-static int tohex(int num)
+static int	tohex(int num)
 {
 	int color;
 	int green;
@@ -30,7 +30,7 @@ static int tohex(int num)
 	return (color);
 }
 
-static int initialize(int *dx, int *dy, double *dcol, double col[2])
+static int	initialize(int *dx, double *dcol, double col[2])
 {
 	int i;
 
@@ -44,17 +44,16 @@ static int initialize(int *dx, int *dy, double *dcol, double col[2])
 	return (i);
 }
 
-void	draw_line_high(t_data *data, int start[2], int end[2], double col[2])
+static void	draw_line_hi(t_data *data, int start[2], int end[2], double col[2])
 {
-	int delta[2];
-	int error;
-	int p[3];
-	int xi;
-	double dcol;
+	int		delta[2];
+	int		error;
+	int		p[3];
+	double	dcol;
 
 	delta[0] = end[0] - start[0];
 	delta[1] = end[1] - start[1];
-	p[2] = initialize(&delta[0], &delta[1], &dcol, col);
+	p[2] = initialize(&delta[0], &dcol, col);
 	if (delta[1] != 0)
 		dcol = dcol / delta[1];
 	p[0] = start[0];
@@ -78,20 +77,20 @@ void	draw_line_high(t_data *data, int start[2], int end[2], double col[2])
 ** Calculates the x and y distances
 ** Initializations checks if delta is negative and makes it to its opposite
 ** It also calculates the color difference
-** Error is (deltay - 0.5 * deltax) but in int it (2 * deltay - deltax)  
+** Error is (deltay - 0.5 * deltax) but in int it (2 * deltay - deltax)
 ** If the error is positive we move on the y axis else the y axis stay the same
 */
 
-void	draw_line_low(t_data *data, int start[2], int  end[2], double col[2])
+static void	draw_line_lo(t_data *data, int start[2], int end[2], double col[2])
 {
-	int delta[2];
-	int error;
-	int p[3];
-	double dcol;
+	int		delta[2];
+	int		error;
+	int		p[3];
+	double	dcol;
 
 	delta[0] = end[0] - start[0];
 	delta[1] = end[1] - start[1];
-	p[2] = initialize(&delta[1], &delta[0], &dcol, col);
+	p[2] = initialize(&delta[1], &dcol, col);
 	if (delta[1] != 0)
 		dcol = dcol / delta[1];
 	p[0] = start[0];
@@ -112,12 +111,12 @@ void	draw_line_low(t_data *data, int start[2], int  end[2], double col[2])
 }
 
 /*
-** First check witch way the line is drawn comparing abs of x and y 
+** First check witch way the line is drawn comparing abs of x and y
 ** Then check if the line is drawn backwards
 ** if it is: change color and change start to end
 */
 
-void	draw_line(t_data *data, int start[2], int end[2], double col[2])
+void		draw_line(t_data *data, int start[2], int end[2], double col[2])
 {
 	double tcol[2];
 
@@ -126,15 +125,15 @@ void	draw_line(t_data *data, int start[2], int end[2], double col[2])
 	if (fabs((double)(end[1] - start[1])) < fabs((double)(end[0] - start[0])))
 	{
 		if (start[0] > end[0])
-			draw_line_low(data, end, start, col);
+			draw_line_lo(data, end, start, col);
 		else
-			draw_line_low(data, start, end, tcol);
+			draw_line_lo(data, start, end, tcol);
 	}
 	else
 	{
 		if (start[1] > end[1])
-			draw_line_high(data, end, start, col);
+			draw_line_hi(data, end, start, col);
 		else
-			draw_line_high(data, start, end, tcol);	
+			draw_line_hi(data, start, end, tcol);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:23:43 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/24 17:59:42 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/26 13:04:52 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ static int	point_on_image(t_data *data, int p[2])
 	return (0);
 }
 
-static void draw_vertical(t_data *data, t_vec3 **point, int lenx, int leny)
+static void	draw_vertical(t_data *data, t_vec3 **point, int lenx, int leny)
 {
-	int i;
-	int y;
-	int p1[2];
-	int p2[2];
-	double col[2];
+	int		i;
+	int		y;
+	int		p1[2];
+	int		p2[2];
+	double	col[2];
 
 	y = 1;
 	while (y < leny)
@@ -54,13 +54,13 @@ static void draw_vertical(t_data *data, t_vec3 **point, int lenx, int leny)
 	}
 }
 
-static void draw_horizontal(t_data *data, t_vec3 **point, int lenx, int leny)
+static void	draw_horizontal(t_data *data, t_vec3 **point, int lenx, int leny)
 {
-	int i;
-	int y;
-	int p1[2];
-	int p2[2];
-	double col[2];
+	int		i;
+	int		y;
+	int		p1[2];
+	int		p2[2];
+	double	col[2];
 
 	y = 0;
 	while (y < leny)
@@ -82,11 +82,11 @@ static void draw_horizontal(t_data *data, t_vec3 **point, int lenx, int leny)
 	}
 }
 
-void	draw_grid(t_data *data)
+void		draw_grid(t_data *data)
 {
-	int lenx;
-	int leny;
-	t_vec3 **point;
+	int		lenx;
+	int		leny;
+	t_vec3	**point;
 
 	point = data->pnt;
 	lenx = data->lenx;

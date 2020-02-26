@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:54:22 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/24 13:13:56 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/26 13:05:20 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	free_pnt(t_data *data)
 
 t_vec3	**copy_pnt(t_data *data)
 {
-	t_vec3 **cpy;
-	int i;
-	int y;
+	t_vec3	**cpy;
+	int		i;
+	int		y;
 
 	if (!(cpy = (t_vec3**)malloc(sizeof(t_vec3*) * data->leny)))
 		error_manager("Malloc error.");

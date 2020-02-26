@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 16:52:50 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/24 19:33:16 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/26 13:11:32 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ double			**matrix_alloc(void)
 	return (mat);
 }
 
-static double	**make_persmatrix(double s, double near, double far, double ar)
+static double	**make_persmatrix(double s, double near, double far)
 {
 	double	**tmat;
 
@@ -50,7 +50,7 @@ static double	**make_persmatrix(double s, double near, double far, double ar)
 	tmat[3][1] = 0;
 	tmat[3][2] = (far * near) / (far - near);
 	tmat[3][3] = 0;
-	return(tmat);
+	return (tmat);
 }
 
 static void		free_matrix(double ***m)
@@ -93,7 +93,7 @@ t_vec3			**transform_perspective(t_data data, double fov)
 	fov = 1 / ((tan((fov / 2) * (M_PI / 180))));
 	y = 0;
 	data.pnt = normalize_pnt(data);
-	m = make_persmatrix(fov, near, far, data.width / data.length);
+	m = make_persmatrix(fov, near, far);
 	while (y < data.leny)
 	{
 		i = 0;

@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:26:05 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/24 14:33:44 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/26 13:11:08 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ t_vec3			**set_color(t_data *data)
 {
 	int max;
 	int min;
-	int col;
 	int i;
 	int j;
 

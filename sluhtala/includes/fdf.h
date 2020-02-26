@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 14:32:04 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/24 17:58:20 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/26 12:39:30 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void	error_manager(char *str);
 t_vec3	matrix_multiply_4(t_vec3 r, double **m);
 double	**matrix_alloc(void);
 t_vec3	**normalize_pnt(t_data data);
+t_vec3	**transformation(t_data *datai);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 19:41:34 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/18 19:30:57 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/26 12:35:52 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static double **make_smatrix(double x, double y, double z)
+static double	**make_smatrix(double x, double y, double z)
 {
 	double	**tmat;
 
@@ -33,10 +33,10 @@ static double **make_smatrix(double x, double y, double z)
 	tmat[3][1] = 0;
 	tmat[3][2] = 0;
 	tmat[3][3] = 1.0;
-	return(tmat);
+	return (tmat);
 }
 
-static void	free_matrix(double ***m)
+static void		free_matrix(double ***m)
 {
 	int i;
 
@@ -51,7 +51,7 @@ static void	free_matrix(double ***m)
 	free(*m);
 }
 
-t_vec3 **transform_scale(t_data data, double x, double y, double z)
+t_vec3			**transform_scale(t_data data, double x, double y, double z)
 {
 	int		inx;
 	int		ynx;

@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 15:03:00 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/24 19:44:24 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/26 12:57:24 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-int		close_program(t_data *data)
+static int		close_program(t_data *data)
 {
 	mlx_destroy_window(data->mlx_ptr, data->mlx_win);
 	if (data->pnt != NULL)
@@ -29,19 +29,6 @@ int		close_program(t_data *data)
 	}
 	exit(0);
 	return (0);
-}
-
-t_vec3 **transformation(t_data *data)
-{
-	data->img_posx = SCREENCENTER_X / 2;
-	data->img_posy = SCREENCENTER_Y / 2;
-	data->scale = 0;
-	data->pnt = set_color(data);	
-	data->pnt = transform_scale(*data, 20, 20, 5.5);
-	data->pnt = transform_rotate_x(*data, 45 * (M_PI / 180));
-	data->pnt = transform_rotate_y(*data, 5 * (M_PI / 180));
-	data->pnt = transform_rotate_z(*data, 10*(M_PI/180));
-	return (data->pnt);
 }
 
 static t_vec3	**move(int key, t_data *data)
@@ -66,7 +53,7 @@ static t_vec3	**move(int key, t_data *data)
 	return (data->pnt);
 }
 
-void	change_projection(t_data *data, int key)
+static void		change_projection(t_data *data, int key)
 {
 	double avarage;
 
@@ -84,7 +71,7 @@ void	change_projection(t_data *data, int key)
 		avarage = (1 / (((double)data->lenx + (double)data->leny) / 2)) * 1.5;
 		data->pnt_cpy = copy_pnt(data);
 		data->pnt = transform_scale(*data, avarage, avarage, avarage);
-		data->pnt = transform_rotate_z(*data, 180 * (M_PI/180));
+		data->pnt = transform_rotate_z(*data, 180 * (M_PI / 180));
 		data->pnt = transform_move(*data, 0, 0, -100);
 		data->pnt = transform_perspective(*data, 80);
 		data->pnt = transform_scale(*data, 600, 600, 600);
@@ -102,7 +89,7 @@ void	change_projection(t_data *data, int key)
 **	- c move back to original position
 */
 
-int		input_manager(int key, t_data *data)
+static int		input_manager(int key, t_data *data)
 {
 	if (key == esc_key || key == 12)
 		close_program(data);
@@ -137,7 +124,7 @@ int		input_manager(int key, t_data *data)
 **	- Draw lines between the point
 */
 
-int		main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_data	d;
 	t_data	*data;
@@ -160,7 +147,7 @@ int		main(int argc, char **argv)
 	if (!(data->mlx_win = mlx_new_window(data->mlx_ptr,
 	data->width, data->length, "FDF")))
 		return (-1);
-	draw_grid(data);	
+	draw_grid(data);
 	mlx_hook(data->mlx_win, 2, 0, &input_manager, data);
 	mlx_loop(data->mlx_ptr);
 	return (0);

@@ -6,13 +6,13 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:50:44 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/24 14:51:43 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/26 12:35:04 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-double **make_xmatrix(double a)
+double	**make_xmatrix(double a)
 {
 	double	**tmat;
 
@@ -33,10 +33,10 @@ double **make_xmatrix(double a)
 	tmat[3][1] = 0;
 	tmat[3][2] = 0;
 	tmat[3][3] = 1.0;
-	return(tmat);
+	return (tmat);
 }
 
-double **make_ymatrix(double a)
+double	**make_ymatrix(double a)
 {
 	double	**tmat;
 
@@ -57,10 +57,10 @@ double **make_ymatrix(double a)
 	tmat[3][1] = 0;
 	tmat[3][2] = 0;
 	tmat[3][3] = 1.0;
-	return(tmat);
+	return (tmat);
 }
 
-double **make_zmatrix(double a)
+double	**make_zmatrix(double a)
 {
 	double	**tmat;
 
@@ -81,5 +81,5 @@ double **make_zmatrix(double a)
 	tmat[3][1] = 0;
 	tmat[3][2] = 0;
 	tmat[3][3] = 1.0;
-	return(tmat);
+	return (tmat);
 }

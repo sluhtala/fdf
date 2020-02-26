@@ -6,7 +6,7 @@
 #    By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 15:20:56 by sluhtala          #+#    #+#              #
-#    Updated: 2020/02/12 15:40:30 by sluhtala         ###   ########.fr        #
+#    Updated: 2020/02/26 12:43:50 by sluhtala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,16 +35,16 @@ INCLUDES = .
 all: $(NAME)
 
 $(NAME):
-	gcc -I $(INCLUDES) -Wall -Wextra -Werror -c $(PATHCFILES)
-	ar -rc $(NAME) $(OFILES)
-	ranlib $(NAME)
+	@gcc -I $(INCLUDES) -Wall -Wextra -Werror -c $(PATHCFILES)
+	@ar -rc $(NAME) $(OFILES)
+	@ranlib $(NAME)
 
 .PHONY:clean
 
 clean:
-	rm -f $(OFILES)
+	@rm -f $(OFILES)
 
 fclean:clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
