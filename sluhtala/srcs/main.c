@@ -6,7 +6,7 @@
 /*   By: sluhtala <sluhtala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 15:03:00 by sluhtala          #+#    #+#             */
-/*   Updated: 2020/02/26 12:57:24 by sluhtala         ###   ########.fr       */
+/*   Updated: 2020/02/26 13:47:57 by sluhtala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ static t_vec3	**move(int key, t_data *data)
 	if (amount < 4)
 		amount = 4;
 	mlx_clear_window(data->mlx_ptr, data->mlx_win);
-	if (key == up_key)
+	if (key == UP_KEY)
 		data->img_posy -= amount;
-	if (key == down_key)
+	if (key == DOWN_KEY)
 		data->img_posy += amount;
-	if (key == right_key)
+	if (key == RIGHT_KEY)
 		data->img_posx += amount;
-	if (key == left_key)
+	if (key == LEFT_KEY)
 		data->img_posx -= amount;
 	draw_grid(data);
 	return (data->pnt);
@@ -91,10 +91,10 @@ static void		change_projection(t_data *data, int key)
 
 static int		input_manager(int key, t_data *data)
 {
-	if (key == esc_key || key == 12)
+	if (key == ESC_KEY || key == 12)
 		close_program(data);
-	if (key == up_key || key == down_key ||
-	key == right_key || key == left_key)
+	if (key == UP_KEY || key == DOWN_KEY ||
+	key == RIGHT_KEY || key == LEFT_KEY)
 		data->pnt = move(key, data);
 	if (key == 8 || key == 18 || key == 19)
 	{

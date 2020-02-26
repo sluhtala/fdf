@@ -17,11 +17,11 @@ all: $(NAME)
 $(NAME):
 	@make -C libft
 	@echo compiling ..
-	@gcc $(SRCS) libft/libft.a -o $(NAME) -I includes -g -l mlx -framework OpenGL -framework AppKit -Wall -Wextra -Werror
+	@gcc $(SRCS) libft/libft.a -o $(NAME) -I includes -l mlx -framework OpenGL -framework AppKit -Wall -Wextra -Werror
 	@echo $(NAME) created
 
 cata:
-	@make -C libft
+	@make -C libt
 	@echo compiling ..
 	@gcc $(SRCS) libft/libft.a -I /usr/X11/include -I includes -g -L /usr/X11/lib -l mlx -framework OpenGL -framework AppKit -o $(NAME)
 	@echo $(NAME) created
