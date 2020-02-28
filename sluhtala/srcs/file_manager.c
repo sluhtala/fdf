@@ -83,6 +83,8 @@ static t_vec3	**get_coords(char *map, int *xlen, int *ylen)
 	y = 0;
 	*ylen = 0;
 	*xlen = 0;
+	if (map[y] == 0 || map[y] == '\n')
+		error_manager("Not valid map.");
 	while (map[y])
 	{
 		if (map[y] == '\n')
